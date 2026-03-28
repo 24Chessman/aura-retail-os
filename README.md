@@ -104,7 +104,7 @@ Inventory, transaction history, and system config are stored as JSON files in th
 
 ## 👨‍🏫 Guided by
 
-Prof. Jayprakash Lalchandani | DA-IICT, Gandhinagar
+Prof. Sourish Dasgupta | DA-IICT, Gandhinagar
 
 ---
 
