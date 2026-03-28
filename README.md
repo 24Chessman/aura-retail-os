@@ -105,11 +105,10 @@ Inventory, transaction history, and system config are stored as JSON files in th
 ## 👨‍🏫 Guided by
 
 Prof. Jayprakash Lalchandani | DA-IICT, Gandhinagar
-```
 
 ---
 
-### Suggested Folder Structure in Repo
+##  Folder Structure in Repo
 ```
 aura-retail-os/
 ├── src/
@@ -126,12 +125,3 @@ aura-retail-os/
 ├── .gitignore
 └── README.md
 ```
-
-### .gitignore (paste this)
-```
-*.class
-out/
-*.iml
-.idea/
-.DS_Store
-*.log
