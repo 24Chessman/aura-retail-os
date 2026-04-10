@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Aura Retail OS
 IT620 Object Oriented Programming | Code Crafters | Path B
 Skeleton generated. Implementation in progress.
@@ -130,4 +129,3 @@ aura-retail-os/
 ├── .gitignore
 └── README.md
 ```
->>>>>>> 37edb59b581d0606605ac070d1d47ce94c11b0ff
