@@ -1,0 +1,134 @@
+==========================================
+   AURA RETAIL OS = SIMULATION START      
+==========================================
+
+[SIMULATION] ---- SCENE 1: Registry Setup ----
+[REGISTRY] CentralRegistry instance created.
+[REGISTRY] System mode changed to: NORMAL
+
+[SIMULATION] ---- SCENE 2: Creating FoodKiosk ----
+[FACTORY] Creating FoodKiosk components...
+[FACTORY] Initialising ConveyorDispenser for FoodKiosk.
+[FACTORY] Dispenser      : ConveyorDispenser
+[FACTORY] Verification   : ExpiryVerification
+[FACTORY] Pricing        : DynamicPricing
+[FACTORY] Inventory Policy: PerishableInventoryPolicy
+[FACTORY] Kiosk KIOSK-F01 ready.
+[REGISTRY] Kiosk registered: KIOSK-F01
+[FACADE] KioskInterface initialized for: KIOSK-F01
+
+[SIMULATION] ---- SCENE 3: Diagnostics ----
+[FACADE] runDiagnostics() called
+[KIOSK] ID: KIOSK-F01 | Type: FoodKiosk | Dispenser: ConveyorDispenser | Pricing: DynamicPricing | Policy: PerishableInventoryPolicy | Status: ACTIVE
+[FACADE] Diagnostics result: [KIOSK] ID: KIOSK-F01 | Type: FoodKiosk | Dispenser: ConveyorDispenser | Pricing: DynamicPricing | Policy: PerishableInventoryPolicy | Status: ACTIVE
+
+[SIMULATION] ---- SCENE 4: Purchases ----
+[FACADE] purchaseItem() called
+[COMMAND] PurchaseItemCommand executing...
+[COMMAND] Product    : Water Bottle x2
+[COMMAND] Payment    : Processing via UPI...
+[COMMAND] Payment    : Approved
+[COMMAND] Dispense   : Item dispensed successfully
+[COMMAND] Inventory  : Stock updated
+[COMMAND] Transaction logged: TXN-001
+[FACADE] purchaseItem() called
+[COMMAND] PurchaseItemCommand executing...
+[COMMAND] Product    : Sandwich x1
+[COMMAND] Payment    : Processing via CreditCard...
+[COMMAND] Payment    : Approved
+[COMMAND] Dispense   : Item dispensed successfully
+[COMMAND] Inventory  : Stock updated
+[COMMAND] Transaction logged: TXN-002
+
+[SIMULATION] ---- SCENE 5: Refund ----
+[FACADE] refundTransaction() called for: TXN-001
+[COMMAND] RefundCommand executing...
+[COMMAND] Reversing transaction: TXN-001
+[COMMAND] Payment reversed successfully
+[COMMAND] Stock restored
+[COMMAND] Refund logged: TXN-003
+
+[SIMULATION] ---- SCENE 6: Restock ----
+[FACADE] restockInventory() called
+[COMMAND] RestockCommand executing...
+[COMMAND] Product : Water Bottle
+[COMMAND] Quantity: 10 units added
+[COMMAND] Inventory updated successfully
+[COMMAND] Restock logged: TXN-004
+
+[SIMULATION] ---- SCENE 7: FoodKiosk Transaction History ----
+[INVOKER] ===== Transaction History =====
+[INVOKER] 1. TXN-001 | PURCHASE | Water Bottle x2 | UPI | SUCCESS
+[INVOKER] 2. TXN-002 | PURCHASE | Sandwich x1 | CreditCard | SUCCESS
+[INVOKER] 3. TXN-003 | REFUND | Ref:TXN-001 | SUCCESS
+[INVOKER] 4. TXN-004 | RESTOCK | Water Bottle x10 | SUCCESS
+[INVOKER] Total transactions: 4
+
+[SIMULATION] ---- SCENE 8: Creating PharmacyKiosk ----
+[FACTORY] Creating PharmacyKiosk components...
+[FACTORY] Initialising PrescriptionDispenser for PharmacyKiosk.
+[FACTORY] Dispenser      : PrescriptionDispenser
+[FACTORY] Verification   : PrescriptionVerification
+[FACTORY] Pricing        : StandardPricing
+[FACTORY] Inventory Policy: ControlledInventoryPolicy
+[FACTORY] Kiosk KIOSK-P01 ready.
+[REGISTRY] Kiosk registered: KIOSK-P01
+[FACADE] KioskInterface initialized for: KIOSK-P01
+[FACADE] purchaseItem() called
+[COMMAND] PurchaseItemCommand executing...
+[COMMAND] Product    : Paracetamol x1
+[COMMAND] Payment    : Processing via DigitalWallet...
+[COMMAND] Payment    : Approved
+[COMMAND] Dispense   : Item dispensed successfully
+[COMMAND] Inventory  : Stock updated
+[COMMAND] Transaction logged: TXN-005
+
+[SIMULATION] ---- SCENE 9: Creating EmergencyKiosk ----
+[FACTORY] Creating EmergencyReliefKiosk components...
+[FACTORY] Initialising RoboticArmDispenser for EmergencyReliefKiosk.
+[FACTORY] Dispenser      : RoboticArmDispenser
+[FACTORY] Verification   : EmergencyVerification
+[FACTORY] Pricing        : EmergencyPricing
+[FACTORY] Inventory Policy: EmergencyInventoryPolicy
+[FACTORY] Kiosk KIOSK-E01 ready.
+[REGISTRY] Kiosk registered: KIOSK-E01
+[REGISTRY] System mode changed to: EMERGENCY
+[FACADE] KioskInterface initialized for: KIOSK-E01
+[FACADE] purchaseItem() called
+[COMMAND] PurchaseItemCommand executing...
+[COMMAND] Product    : First Aid Kit x5
+[COMMAND] Payment    : Processing via UPI...
+[COMMAND] Payment    : Approved
+[COMMAND] Dispense   : Item dispensed successfully
+[COMMAND] Inventory  : Stock updated
+[COMMAND] Transaction logged: TXN-006
+
+[SIMULATION] ---- SCENE 10: Registry Status ----
+[REGISTRY] ===== Registry Status =====
+[REGISTRY] System Mode : EMERGENCY
+[REGISTRY] Registered Kiosks (3):
+[REGISTRY]   -> KIOSK-F01
+[REGISTRY]   -> KIOSK-P01
+[REGISTRY]   -> KIOSK-E01
+[REGISTRY] ============================
+
+[SIMULATION] ---- SCENE 11: All Transaction Histories ----
+[SIMULATION] >> FoodKiosk (KIOSK-F01):
+[INVOKER] ===== Transaction History =====
+[INVOKER] 1. TXN-001 | PURCHASE | Water Bottle x2 | UPI | SUCCESS
+[INVOKER] 2. TXN-002 | PURCHASE | Sandwich x1 | CreditCard | SUCCESS
+[INVOKER] 3. TXN-003 | REFUND | Ref:TXN-001 | SUCCESS
+[INVOKER] 4. TXN-004 | RESTOCK | Water Bottle x10 | SUCCESS
+[INVOKER] Total transactions: 4
+[SIMULATION] >> PharmacyKiosk (KIOSK-P01):
+[INVOKER] ===== Transaction History =====
+[INVOKER] 1. TXN-005 | PURCHASE | Paracetamol x1 | DigitalWallet | SUCCESS
+[INVOKER] Total transactions: 1
+[SIMULATION] >> EmergencyKiosk (KIOSK-E01):
+[INVOKER] ===== Transaction History =====
+[INVOKER] 1. TXN-006 | PURCHASE | First Aid Kit x5 | UPI | SUCCESS
+[INVOKER] Total transactions: 1
+
+==========================================
+   AURA RETAIL OS = SIMULATION COMPLETE   
+==========================================
