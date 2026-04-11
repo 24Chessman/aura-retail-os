@@ -1,7 +1,3 @@
-# Aura Retail OS
-IT620 Object Oriented Programming | Code Crafters | Path B
-Skeleton generated. Implementation in progress.
-=======
 # 🏙️ Aura Retail OS
 
 **Designing an Autonomous Modular Smart-City Retail Infrastructure**
@@ -34,22 +30,23 @@ modular architecture.
 
 ## 🧩 Design Patterns Implemented
 
-| Pattern          | Where Used                        |
-|------------------|-----------------------------------|
-| Singleton        | CentralRegistry                   |
-| Abstract Factory | Kiosk creation (3 kiosk types)    |
-| Bridge           | Hardware abstraction layer        |
-| Strategy         | Dispenser behaviour at runtime    |
-| Decorator        | Optional hardware modules         |
-| Proxy            | Secure inventory access           |
-| Composite        | Nested product/bundle inventory   |
-| Adapter          | Payment provider integration      |
-| Command          | Transaction system                |
-| Facade           | KioskInterface (external API)     |
+| Pattern          | Where Used                        | Status         |
+|------------------|-----------------------------------|----------------|
+| Singleton        | CentralRegistry                   | ✅ Complete     |
+| Abstract Factory | Kiosk creation (3 kiosk types)    | ✅ Complete     |
+| Command          | Transaction system                | ✅ Complete     |
+| Facade           | KioskInterface (external API)     | ✅ Complete     |
+| Bridge           | Hardware abstraction layer        | 🔧 In Progress |
+| Strategy         | Dispenser behaviour at runtime    | 🔧 In Progress |
+| Decorator        | Optional hardware modules         | 🔧 In Progress |
+| Proxy            | Secure inventory access           | 🔧 In Progress |
+| Composite        | Nested product/bundle inventory   | 🔧 In Progress |
+| Adapter          | Payment provider integration      | 🔧 In Progress |
 
 ---
 
 ## 🗂️ Project Structure
+
 ```
 src/
 └── com/aura/retailos/
@@ -58,24 +55,28 @@ src/
     ├── kiosk/         # BaseKiosk + Decorator modules
     ├── hardware/
     │   ├── bridge/    # Bridge pattern — dispenser abstraction
-    │   └── strategy/  # Strategy pattern — dispensing algorithms
+    │   └── impl/      # Bridge implementations — dispenser types
+    ├── strategy/      # Strategy pattern — dispensing algorithms
     ├── inventory/     # Composite + Proxy + JSON persistence
+    │   └── composite/ # InventoryItem, Product, ProductBundle
     ├── payment/       # Adapter pattern — payment providers
-    └── commands/      # Command pattern — transactions
+    ├── commands/      # Command pattern — transactions
+    └── monitoring/    # City monitoring system
 ```
 
 ---
 
 ## ▶️ How to Run
 
-**Requirements:** Java 17+, Maven or plain javac
+**Requirements:** Java 17+
+
 ```bash
 # Clone the repo
-git clone https://github.com/<your-username>/aura-retail-os.git
+git clone https://github.com/24Chessman/aura-retail-os.git
 cd aura-retail-os
 
 # Compile
-javac -d out src/com/aura/retailos/**/*.java
+javac -d out src/com/aura/retailos/**/*.java src/com/aura/retailos/Main.java
 
 # Run simulation
 java -cp out com.aura.retailos.Main
@@ -83,7 +84,17 @@ java -cp out com.aura.retailos.Main
 
 ---
 
-## 🎬 Simulation Scenarios
+## 🎬 Simulation Scenarios (Subtask 2)
+
+The current simulation demonstrates 3 fully implemented patterns across
+11 scenes:
+
+1. **FoodKiosk creation** — Abstract Factory builds kiosk with compatible components
+2. **Purchase, Refund, Restock** — Command pattern with full transaction audit trail
+3. **PharmacyKiosk and EmergencyKiosk** — Factory creates 3 different kiosk types
+4. **Registry status** — Singleton tracks all kiosks and system mode
+
+**Planned for Final Submission:**
 
 1. **Adding a hardware module at runtime** — Attach RefrigerationDecorator to a FoodKiosk dynamically
 2. **Integrating a new payment provider** — Plug in DigitalWalletAdapter without touching existing code
@@ -95,37 +106,18 @@ java -cp out com.aura.retailos.Main
 
 - `docs/PRD.docx` — Full Product Requirements Document
 - `docs/ClassDiagram.drawio` — Class diagram
-- `docs/SequenceDiagram.drawio` — Sequence diagram
 - `docs/ArchitectureDiagram.drawio` — Subsystem architecture
 
 ---
 
 ## 📁 Data Persistence
 
-Inventory, transaction history, and system config are stored as JSON files in the `data/` directory and loaded on startup via `InventoryPersistence.java`.
+Inventory, transaction history, and system config will be stored as JSON
+files in the `data/` directory and loaded on startup via
+`InventoryPersistence.java` (planned for final submission).
 
 ---
 
 ## 👨‍🏫 Guided by
 
-Prof. Sourish Dasgupta | DA-IICT, Gandhinagar
-
----
-
-##  Folder Structure in Repo
-```
-aura-retail-os/
-├── src/
-│   └── com/aura/retailos/   ← all Java packages here
-├── data/
-│   ├── inventory.json
-│   ├── transactions.json
-│   └── config.json
-├── docs/
-│   ├── PRD.docx
-│   ├── ClassDiagram.drawio
-│   ├── SequenceDiagram.drawio
-│   └── ArchitectureDiagram.drawio
-├── .gitignore
-└── README.md
-```
+Prof. Sourish Dasgupta & TAs | DA-IICT, Gandhinagar
