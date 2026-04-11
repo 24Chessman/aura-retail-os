@@ -2,50 +2,64 @@
 // Pattern: Singleton
 package com.aura.retailos.core;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CentralRegistry {
 
-    // The single global instance of this registry
-    private static CentralRegistry instance;
+    // The single global instance — volatile for thread-safe lazy initialisation
+    private static volatile CentralRegistry instance;
 
-    // Current operational mode of the system (e.g., NORMAL, EMERGENCY)
+    // Operational mode of the entire system (e.g., NORMAL, EMERGENCY)
     private String systemMode;
 
-    // List of all registered kiosk IDs
+    // List of all kiosk IDs that have registered with the registry
     private List<String> registeredKiosks;
 
-    // List of currently active transaction IDs
-    private List<String> activeTransactions;
-
-    // Private constructor to prevent external instantiation
+    // Private constructor prevents external instantiation
     private CentralRegistry() {
-        throw new UnsupportedOperationException("To be implemented");
+        this.systemMode = "NORMAL";
+        this.registeredKiosks = new ArrayList<>();
     }
 
-    // Returns the single global instance, creating it if necessary
+    // Returns the single global instance, creating it on first call (double-checked locking)
     public static CentralRegistry getInstance() {
-        throw new UnsupportedOperationException("To be implemented");
+        if (instance == null) {
+            synchronized (CentralRegistry.class) {
+                if (instance == null) {
+                    instance = new CentralRegistry();
+                    System.out.println("[REGISTRY] CentralRegistry instance created.");
+                }
+            }
+        }
+        return instance;
     }
 
-    // Returns the current system mode
-    public String getSystemMode() {
-        throw new UnsupportedOperationException("To be implemented");
-    }
-
-    // Sets the operational mode of the system
-    public void setSystemMode(String mode) {
-        throw new UnsupportedOperationException("To be implemented");
-    }
-
-    // Registers a kiosk by its ID into the global registry
+    // Registers a kiosk by its ID and confirms registration to the console
     public void registerKiosk(String kioskId) {
-        throw new UnsupportedOperationException("To be implemented");
+        registeredKiosks.add(kioskId);
+        System.out.println("[REGISTRY] Kiosk registered: " + kioskId);
     }
 
-    // Prints current global status including kiosks and active transactions
+    // Returns the current operational mode of the system
+    public String getSystemMode() {
+        return systemMode;
+    }
+
+    // Updates the system mode and announces the change to the console
+    public void setSystemMode(String mode) {
+        this.systemMode = mode;
+        System.out.println("[REGISTRY] System mode changed to: " + mode);
+    }
+
+    // Prints the full registry status including all kiosks and current mode
     public void printStatus() {
-        throw new UnsupportedOperationException("To be implemented");
+        System.out.println("[REGISTRY] ===== Registry Status =====");
+        System.out.println("[REGISTRY] System Mode : " + systemMode);
+        System.out.println("[REGISTRY] Registered Kiosks (" + registeredKiosks.size() + "):");
+        for (String id : registeredKiosks) {
+            System.out.println("[REGISTRY]   -> " + id);
+        }
+        System.out.println("[REGISTRY] ============================");
     }
 }

@@ -2,38 +2,38 @@
 // Pattern: Abstract Factory
 package com.aura.retailos.factory;
 
-import com.aura.retailos.hardware.bridge.DispenserAbstraction;
-import com.aura.retailos.kiosk.BaseKiosk;
+import com.aura.retailos.hardware.DispenserAbstraction;
 
 public class FoodKioskFactory extends KioskFactory {
 
-    // Creates a ConveyorDispenser abstraction suited for food kiosks
-    @Override
-    public DispenserAbstraction createDispenser() {
-        throw new UnsupportedOperationException("To be implemented");
-    }
-
-    // Returns the food-safety verification module identifier
-    @Override
-    public String createVerificationModule() {
-        throw new UnsupportedOperationException("To be implemented");
-    }
-
-    // Returns the pricing module for perishable food products
-    @Override
-    public String createPricingModule() {
-        throw new UnsupportedOperationException("To be implemented");
-    }
-
-    // Returns the PerishableInventoryPolicy identifier for food stock
-    @Override
-    public String createInventoryPolicy() {
-        throw new UnsupportedOperationException("To be implemented");
-    }
-
-    // Returns the kiosk type label for food kiosks
+    // Returns the kiosk type label for food/metro kiosks
     @Override
     public String getKioskType() {
-        throw new UnsupportedOperationException("To be implemented");
+        return "FoodKiosk";
+    }
+
+    // Creates a ConveyorDispenser for food item delivery on metro platforms
+    @Override
+    public DispenserAbstraction createDispenser() {
+        System.out.println("[FACTORY] Initialising ConveyorDispenser for FoodKiosk.");
+        return new DispenserAbstraction("ConveyorDispenser");
+    }
+
+    // Returns the expiry verification module for perishable products
+    @Override
+    public String createVerificationModule() {
+        return "ExpiryVerification";
+    }
+
+    // Returns the dynamic pricing strategy that adjusts price by demand and expiry
+    @Override
+    public String createPricingModule() {
+        return "DynamicPricing";
+    }
+
+    // Returns the inventory policy for perishable, time-sensitive stock
+    @Override
+    public String createInventoryPolicy() {
+        return "PerishableInventoryPolicy";
     }
 }

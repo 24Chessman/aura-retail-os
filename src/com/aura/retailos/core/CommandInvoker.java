@@ -3,34 +3,41 @@
 package com.aura.retailos.core;
 
 import com.aura.retailos.commands.Command;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CommandInvoker {
 
     // Ordered history of all commands that have been executed
-    private List<Command> commandHistory;
+    private List<Command> commandHistory = new ArrayList<>();
 
-    // Counter used to generate sequential transaction IDs
-    private static int transactionCounter;
+    // Global counter used to generate sequential transaction IDs (shared by all command classes)
+    private static int transactionCounter = 1;
 
-    // Executes a command and records it in the history
+    // Executes the given command and records it in the history
     public void executeCommand(Command cmd) {
-        throw new UnsupportedOperationException("To be implemented");
+        cmd.execute();
+        commandHistory.add(cmd);
     }
 
     // Generates a unique transaction ID in the format TXN-001, TXN-002, etc.
-    public String generateTransactionId() {
-        throw new UnsupportedOperationException("To be implemented");
+    // Static so command constructors can call it directly without an invoker instance
+    public static String generateTransactionId() {
+        return "TXN-" + String.format("%03d", transactionCounter++);
     }
 
-    // Returns the full list of executed commands
+    // Returns the full ordered list of executed commands
     public List<Command> getHistory() {
-        throw new UnsupportedOperationException("To be implemented");
+        return commandHistory;
     }
 
-    // Prints a formatted log of all executed commands
+    // Prints a numbered transaction history log with totals
     public void printHistory() {
-        throw new UnsupportedOperationException("To be implemented");
+        System.out.println("[INVOKER] ===== Transaction History =====");
+        int i = 1;
+        for (Command cmd : commandHistory) {
+            System.out.println("[INVOKER] " + i++ + ". " + cmd.getLog());
+        }
+        System.out.println("[INVOKER] Total transactions: " + commandHistory.size());
     }
 }

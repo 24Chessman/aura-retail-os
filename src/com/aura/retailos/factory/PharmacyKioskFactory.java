@@ -2,38 +2,38 @@
 // Pattern: Abstract Factory
 package com.aura.retailos.factory;
 
-import com.aura.retailos.hardware.bridge.DispenserAbstraction;
-import com.aura.retailos.kiosk.BaseKiosk;
+import com.aura.retailos.hardware.DispenserAbstraction;
 
 public class PharmacyKioskFactory extends KioskFactory {
-
-    // Creates a SpiralDispenser abstraction suited for pharmacy kiosks
-    @Override
-    public DispenserAbstraction createDispenser() {
-        throw new UnsupportedOperationException("To be implemented");
-    }
-
-    // Returns the prescription verification module identifier
-    @Override
-    public String createVerificationModule() {
-        throw new UnsupportedOperationException("To be implemented");
-    }
-
-    // Returns the pricing module for controlled pharmaceutical products
-    @Override
-    public String createPricingModule() {
-        throw new UnsupportedOperationException("To be implemented");
-    }
-
-    // Returns the ControlledInventoryPolicy identifier for pharmacy stock
-    @Override
-    public String createInventoryPolicy() {
-        throw new UnsupportedOperationException("To be implemented");
-    }
 
     // Returns the kiosk type label for pharmacy kiosks
     @Override
     public String getKioskType() {
-        throw new UnsupportedOperationException("To be implemented");
+        return "PharmacyKiosk";
+    }
+
+    // Creates a PrescriptionDispenser for controlled medication dispensing
+    @Override
+    public DispenserAbstraction createDispenser() {
+        System.out.println("[FACTORY] Initialising PrescriptionDispenser for PharmacyKiosk.");
+        return new DispenserAbstraction("PrescriptionDispenser");
+    }
+
+    // Returns the verification module used to validate prescriptions
+    @Override
+    public String createVerificationModule() {
+        return "PrescriptionVerification";
+    }
+
+    // Returns the standard price calculation strategy for pharmacy products
+    @Override
+    public String createPricingModule() {
+        return "StandardPricing";
+    }
+
+    // Returns the inventory policy that enforces controlled substance limits
+    @Override
+    public String createInventoryPolicy() {
+        return "ControlledInventoryPolicy";
     }
 }

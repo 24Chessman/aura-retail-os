@@ -2,6 +2,8 @@
 // Pattern: Command
 package com.aura.retailos.commands;
 
+import com.aura.retailos.core.CommandInvoker;
+
 public class PurchaseItemCommand implements Command {
 
     // Name of the product being purchased
@@ -10,29 +12,42 @@ public class PurchaseItemCommand implements Command {
     // Number of units being purchased
     private int quantity;
 
-    // Payment method used for this purchase (e.g., UPI, CREDIT_CARD)
+    // Payment method selected by the customer (e.g., UPI, CreditCard, DigitalWallet)
     private String paymentMethod;
 
-    // Unique transaction ID for this purchase command
+    // Auto-generated unique transaction ID for this purchase
     private String transactionId;
 
-    // Current status of this command (e.g., PENDING, SUCCESS, FAILED)
+    // Outcome of the command execution (e.g., SUCCESS, FAILED)
     private String status;
 
-    // Constructs a PurchaseItemCommand with all required purchase details
-    public PurchaseItemCommand(String productName, int quantity, String paymentMethod, String transactionId) {
-        throw new UnsupportedOperationException("To be implemented");
+    // Constructs a PurchaseItemCommand and auto-generates a transaction ID
+    public PurchaseItemCommand(String productName, int quantity, String paymentMethod) {
+        this.productName = productName;
+        this.quantity = quantity;
+        this.paymentMethod = paymentMethod;
+        this.transactionId = CommandInvoker.generateTransactionId();
+        this.status = "PENDING";
     }
 
-    // Executes the purchase: validates stock, processes payment, and triggers dispensing
+    // Simulates the full purchase workflow: payment, dispensing, inventory update, and logging
     @Override
     public boolean execute() {
-        throw new UnsupportedOperationException("To be implemented");
+        System.out.println("[COMMAND] PurchaseItemCommand executing...");
+        System.out.println("[COMMAND] Product    : " + productName + " x" + quantity);
+        System.out.println("[COMMAND] Payment    : Processing via " + paymentMethod + "...");
+        System.out.println("[COMMAND] Payment    : Approved");
+        System.out.println("[COMMAND] Dispense   : Item dispensed successfully");
+        System.out.println("[COMMAND] Inventory  : Stock updated");
+        System.out.println("[COMMAND] Transaction logged: " + transactionId);
+        this.status = "SUCCESS";
+        return true;
     }
 
-    // Returns a formatted log entry for this purchase command
+    // Returns a pipe-delimited log entry for this purchase transaction
     @Override
     public String getLog() {
-        throw new UnsupportedOperationException("To be implemented");
+        return transactionId + " | PURCHASE | " + productName + " x" + quantity
+                + " | " + paymentMethod + " | " + status;
     }
 }

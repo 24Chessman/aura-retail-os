@@ -2,46 +2,61 @@
 // Pattern: Facade
 package com.aura.retailos.core;
 
+import com.aura.retailos.commands.PurchaseItemCommand;
+import com.aura.retailos.commands.RefundCommand;
+import com.aura.retailos.commands.RestockCommand;
 import com.aura.retailos.kiosk.BaseKiosk;
 
 public class KioskInterface {
 
-    // The base kiosk being managed through this facade
+    // The base kiosk this facade manages
     private BaseKiosk kiosk;
 
-    // The command invoker used to execute and track transactions
+    // The command invoker used to execute and track all transactions
     private CommandInvoker invoker;
 
     // Reference to the global central registry
     private CentralRegistry registry;
 
-    // Constructs the facade around a given BaseKiosk
+    // Initialises the facade, wires up the invoker and registry, and announces readiness
     public KioskInterface(BaseKiosk kiosk) {
-        throw new UnsupportedOperationException("To be implemented");
+        this.kiosk = kiosk;
+        this.invoker = new CommandInvoker();
+        this.registry = CentralRegistry.getInstance();
+        System.out.println("[FACADE] KioskInterface initialized for: " + kiosk.getKioskId());
     }
 
-    // Orchestrates a full purchase: inventory check, pricing, payment, dispensing, stock update, and logging
+    // Hides the complexity of creating and executing a PurchaseItemCommand
     public boolean purchaseItem(String productName, int quantity, String paymentMethod) {
-        throw new UnsupportedOperationException("To be implemented");
+        System.out.println("[FACADE] purchaseItem() called");
+        invoker.executeCommand(new PurchaseItemCommand(productName, quantity, paymentMethod));
+        return true;
     }
 
-    // Orchestrates a refund for a given transaction ID
+    // Hides the complexity of creating and executing a RefundCommand for the given transaction
     public boolean refundTransaction(String transactionId) {
-        throw new UnsupportedOperationException("To be implemented");
+        System.out.println("[FACADE] refundTransaction() called for: " + transactionId);
+        invoker.executeCommand(new RefundCommand(transactionId));
+        return true;
     }
 
-    // Orchestrates a restock operation for a given product
+    // Hides the complexity of creating and executing a RestockCommand
     public boolean restockInventory(String productName, int quantity) {
-        throw new UnsupportedOperationException("To be implemented");
+        System.out.println("[FACADE] restockInventory() called");
+        invoker.executeCommand(new RestockCommand(productName, quantity));
+        return true;
     }
 
-    // Runs diagnostics on all subsystems and returns a status report
+    // Delegates to the kiosk for a hardware/status diagnostic report
     public String runDiagnostics() {
-        throw new UnsupportedOperationException("To be implemented");
+        System.out.println("[FACADE] runDiagnostics() called");
+        String status = kiosk.getStatus();
+        System.out.println("[FACADE] Diagnostics result: " + status);
+        return status;
     }
 
-    // Delegates to CommandInvoker to print the full transaction history
+    // Delegates transaction history printing to the CommandInvoker
     public void printTransactionHistory() {
-        throw new UnsupportedOperationException("To be implemented");
+        invoker.printHistory();
     }
 }

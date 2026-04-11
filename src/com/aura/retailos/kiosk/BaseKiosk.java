@@ -2,47 +2,56 @@
 // Pattern: Decorator
 package com.aura.retailos.kiosk;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class BaseKiosk implements Kiosk {
 
-    // Unique identifier for this kiosk instance
     private String kioskId;
-
-    // Type of kiosk (e.g., PharmacyKiosk, FoodKiosk, EmergencyReliefKiosk)
     private String kioskType;
-
-    // Type of dispenser assigned to this kiosk
     private String dispenserType;
-
-    // Pricing module type assigned to this kiosk
     private String pricingType;
-
-    // Inventory policy name applied to this kiosk
     private String inventoryPolicy;
 
     // Constructs a BaseKiosk with all required configuration fields
-    public BaseKiosk(String kioskId, String kioskType, String dispenserType, String pricingType, String inventoryPolicy) {
-        throw new UnsupportedOperationException("To be implemented");
+    public BaseKiosk(String kioskId, String kioskType, String dispenserType,
+                     String pricingType, String inventoryPolicy) {
+        this.kioskId = kioskId;
+        this.kioskType = kioskType;
+        this.dispenserType = dispenserType;
+        this.pricingType = pricingType;
+        this.inventoryPolicy = inventoryPolicy;
     }
 
-    // Returns a formatted string describing the kiosk's current state
+    // Returns a formatted status string and prints it to the console
+    @Override
     public String getStatus() {
-        throw new UnsupportedOperationException("To be implemented");
+        String status = "[KIOSK] ID: " + kioskId
+                + " | Type: " + kioskType
+                + " | Dispenser: " + dispenserType
+                + " | Pricing: " + pricingType
+                + " | Policy: " + inventoryPolicy
+                + " | Status: ACTIVE";
+        System.out.println(status);
+        return status;
     }
 
-    // Executes a named operation and returns whether it succeeded
+    // Prints the operation being performed and always confirms success
+    @Override
     public boolean performOperation(String op) {
-        throw new UnsupportedOperationException("To be implemented");
+        System.out.println("[KIOSK] Performing: " + op);
+        return true;
     }
 
-    // Returns the base list of capabilities for this kiosk type
+    // Returns the list of key capabilities configured on this kiosk
+    @Override
     public List<String> getCapabilities() {
-        throw new UnsupportedOperationException("To be implemented");
+        return Arrays.asList(dispenserType, pricingType, inventoryPolicy);
     }
 
     // Returns the unique kiosk ID
+    @Override
     public String getKioskId() {
-        throw new UnsupportedOperationException("To be implemented");
+        return kioskId;
     }
 }
