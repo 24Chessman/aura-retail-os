@@ -9,21 +9,23 @@ public class DispenserAbstraction {
 
     // Constructs the abstraction bound to a specific hardware implementation
     public DispenserAbstraction(DispenserImplementation implementation) {
-        throw new UnsupportedOperationException("To be implemented");
+        this.implementation = implementation;
     }
 
     // Delegates dispensing of a product to the underlying hardware implementation
     public boolean dispense(String product) {
-        throw new UnsupportedOperationException("To be implemented");
+        System.out.println("[BRIDGE] Delegating dispense(" + product + ") to " + implementation.getType());
+        return implementation.execute(product);
     }
 
     // Replaces the underlying hardware implementation at runtime (hot-swap)
     public void setImplementation(DispenserImplementation impl) {
-        throw new UnsupportedOperationException("To be implemented");
+        System.out.println("[BRIDGE] Swapping implementation to " + impl.getType());
+        this.implementation = impl;
     }
 
     // Returns the status of the currently bound hardware implementation
     public String getStatus() {
-        throw new UnsupportedOperationException("To be implemented");
+        return "Dispenser: " + implementation.getType() + " | Ready";
     }
 }

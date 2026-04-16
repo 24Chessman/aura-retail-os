@@ -11,5 +11,7 @@ public abstract class DispenserImplementation {
     public abstract String getType();
 
     // Performs hardware calibration to prepare for dispensing
-    public abstract void calibrate();
+    public void calibrate() {
+        System.out.println("[DISPENSER-IMPL] Calibrating " + getType());
+    }
 }
