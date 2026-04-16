@@ -7,12 +7,13 @@ public class SpiralDispensingStrategy implements DispensingStrategy {
     // Dispenses a product using the spiral mechanism strategy
     @Override
     public boolean dispense(String product) {
-        throw new UnsupportedOperationException("To be implemented");
+        System.out.println("[STRATEGY-SPIRAL] Spiral dispensing: " + product);
+        return true;
     }
 
     // Returns the name of this strategy
     @Override
     public String getStrategyName() {
-        throw new UnsupportedOperationException("To be implemented");
+        return "SpiralDispensingStrategy";
     }
 }
