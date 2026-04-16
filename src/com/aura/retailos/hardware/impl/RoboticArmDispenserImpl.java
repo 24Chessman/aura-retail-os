@@ -1,34 +1,48 @@
 // Aura Retail OS | IT620 | Code Crafters
-// Pattern: Bridge
+// Pattern: Bridge + Strategy
 package com.aura.retailos.hardware.impl;
 
 import com.aura.retailos.hardware.bridge.DispenserImplementation;
+import com.aura.retailos.strategy.DispensingStrategy;
 
 public class RoboticArmDispenserImpl extends DispenserImplementation {
 
     // Precision level of the robotic arm (higher = more accurate placement)
-    private double armPrecision;
+    private double armPrecision = 0.95;
+
+    // Optional strategy override for dispensing behaviour
+    private DispensingStrategy strategy;
 
     // Constructs a RoboticArmDispenserImpl with a given arm precision value
     public RoboticArmDispenserImpl(double armPrecision) {
-        throw new UnsupportedOperationException("To be implemented");
+        this.armPrecision = armPrecision;
+    }
+
+    // Sets the dispensing strategy and announces the change
+    public void setStrategy(DispensingStrategy s) {
+        System.out.println("[DISPENSER] Strategy set to: " + s.getStrategyName());
+        this.strategy = s;
     }
 
     // Executes the robotic arm dispensing action to pick and place the product
     @Override
     public boolean execute(String product) {
-        throw new UnsupportedOperationException("To be implemented");
+        if (strategy != null) {
+            return strategy.dispense(product);
+        }
+        System.out.println("[ROBOTIC-ARM] Dispensing " + product + " with precision " + armPrecision);
+        return true;
     }
 
     // Returns the hardware type identifier for this dispenser
     @Override
     public String getType() {
-        throw new UnsupportedOperationException("To be implemented");
+        return "RoboticArmDispenser";
     }
 
     // Calibrates the arm joints, sensors, and grip pressure
     @Override
     public void calibrate() {
-        throw new UnsupportedOperationException("To be implemented");
+        System.out.println("[ROBOTIC-ARM] Calibrating arm precision to " + armPrecision);
     }
 }
