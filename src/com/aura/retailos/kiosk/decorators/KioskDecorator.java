@@ -12,26 +12,30 @@ public abstract class KioskDecorator implements Kiosk {
 
     // Constructs a decorator wrapping the given kiosk
     public KioskDecorator(Kiosk kiosk) {
-        throw new UnsupportedOperationException("To be implemented");
+        this.wrappedKiosk = kiosk;
     }
 
     // Delegates getStatus to the wrapped kiosk (subclasses may augment)
+    @Override
     public String getStatus() {
-        throw new UnsupportedOperationException("To be implemented");
+        return wrappedKiosk.getStatus();
     }
 
     // Delegates performOperation to the wrapped kiosk
+    @Override
     public boolean performOperation(String op) {
-        throw new UnsupportedOperationException("To be implemented");
+        return wrappedKiosk.performOperation(op);
     }
 
     // Delegates getCapabilities to the wrapped kiosk (subclasses may augment)
+    @Override
     public List<String> getCapabilities() {
-        throw new UnsupportedOperationException("To be implemented");
+        return wrappedKiosk.getCapabilities();
     }
 
     // Delegates getKioskId to the wrapped kiosk
+    @Override
     public String getKioskId() {
-        throw new UnsupportedOperationException("To be implemented");
+        return wrappedKiosk.getKioskId();
     }
 }
