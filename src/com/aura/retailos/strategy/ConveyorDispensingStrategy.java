@@ -7,12 +7,13 @@ public class ConveyorDispensingStrategy implements DispensingStrategy {
     // Dispenses a product using the conveyor belt movement strategy
     @Override
     public boolean dispense(String product) {
-        throw new UnsupportedOperationException("To be implemented");
+        System.out.println("[STRATEGY-CONVEYOR] Conveyor belt dispensing: " + product);
+        return true;
     }
 
     // Returns the name of this strategy
     @Override
     public String getStrategyName() {
-        throw new UnsupportedOperationException("To be implemented");
+        return "ConveyorDispensingStrategy";
     }
 }

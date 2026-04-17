@@ -7,12 +7,13 @@ public class RoboticArmDispensingStrategy implements DispensingStrategy {
     // Dispenses a product using the robotic arm precision strategy
     @Override
     public boolean dispense(String product) {
-        throw new UnsupportedOperationException("To be implemented");
+        System.out.println("[STRATEGY-ROBOTIC] Robotic arm dispensing: " + product);
+        return true;
     }
 
     // Returns the name of this strategy
     @Override
     public String getStrategyName() {
-        throw new UnsupportedOperationException("To be implemented");
+        return "RoboticArmDispensingStrategy";
     }
 }
