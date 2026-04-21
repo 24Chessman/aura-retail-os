@@ -19,47 +19,70 @@ public class Product implements InventoryItem {
     // Whether this product requires refrigeration to remain available
     private boolean requiresRefrigeration;
 
+    // Full constructor
+    public Product(String itemId, String name, double price, int stock, boolean requiresRefrigeration) {
+        this.itemId = itemId;
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.requiresRefrigeration = requiresRefrigeration;
+    }
+
     // Returns the display name of this product
     @Override
     public String getName() {
-        throw new UnsupportedOperationException("To be implemented");
+        return name;
     }
 
     // Returns the price of this product
     @Override
     public double getPrice() {
-        throw new UnsupportedOperationException("To be implemented");
+        return price;
     }
 
-    // Returns true if the product has stock and its refrigeration requirements are met
+    // Returns true if the product has stock available
     @Override
     public boolean isAvailable() {
-        throw new UnsupportedOperationException("To be implemented");
+        return stock > 0;
     }
 
     // Returns the unique item ID of this product
     @Override
     public String getItemId() {
-        throw new UnsupportedOperationException("To be implemented");
+        return itemId;
     }
 
     // Returns the current stock quantity
     public int getStock() {
-        throw new UnsupportedOperationException("To be implemented");
+        return stock;
     }
 
     // Sets the stock quantity directly
     public void setStock(int qty) {
-        throw new UnsupportedOperationException("To be implemented");
+        this.stock = qty;
     }
 
     // Decrements stock by 1 when a unit is dispensed
     public void decrementStock() {
-        throw new UnsupportedOperationException("To be implemented");
+        if (stock > 0) {
+            stock--;
+            System.out.println("[PRODUCT] Stock decremented: " + name + " now " + stock + " units");
+        }
     }
 
     // Increments stock by the specified quantity when restocked
     public void incrementStock(int qty) {
-        throw new UnsupportedOperationException("To be implemented");
+        stock += qty;
+        System.out.println("[PRODUCT] Stock incremented: " + name + " now " + stock + " units");
+    }
+
+    // Returns whether this product requires refrigeration
+    public boolean requiresRefrigeration() {
+        return requiresRefrigeration;
+    }
+
+    @Override
+    public String toString() {
+        return "Product[id=" + itemId + ", name=" + name + ", price=" + price + ", stock=" + stock + "]";
     }
 }
