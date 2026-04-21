@@ -1,0 +1,7 @@
+{
+  "inventory": [
+    {"id":"P001","name":"Water","price":20.0,"stock":10},
+    {"id":"P003","name":"FirstAidKit","price":50.0,"stock":3},
+    {"id":"P002","name":"Sandwich","price":35.0,"stock":5}
+  ]
+}

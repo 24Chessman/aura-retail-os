@@ -1,0 +1,6 @@
+{
+  "transactions": [
+    "TXN-001 | PURCHASE | Water x2 | UPI | SUCCESS",
+    "TXN-002 | REFUND | Ref:TXN-001 | SUCCESS"
+  ]
+}
