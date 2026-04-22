@@ -1,21 +1,28 @@
 // Aura Retail OS | IT620 | Code Crafters
 // Pattern: Adapter
+// Owner: Priya | 202512003
 package com.aura.retailos.payment;
+
+import com.aura.retailos.payment.providers.CreditCardGateway;
 
 public class CreditCardAdapter implements PaymentProcessor {
 
-    // The name/identifier of the credit card gateway being adapted
-    private String gatewayName;
+    // The incompatible third-party gateway this adapter wraps.
+    // External code only ever sees PaymentProcessor — never CreditCardGateway.
+    private CreditCardGateway gateway = new CreditCardGateway();
 
-    // Adapts the processPayment call to the credit card gateway's API
+    // Converts the unified PaymentProcessor call into the gateway's
+    // own processCardPayment(cardNumber, amount) signature.
     @Override
     public boolean processPayment(double amount, String paymentDetails) {
-        throw new UnsupportedOperationException("To be implemented");
+        System.out.println("[ADAPTER] CreditCardAdapter converting PaymentProcessor call");
+        // paymentDetails carries the full card number string
+        return gateway.processCardPayment(paymentDetails, amount);
     }
 
-    // Returns the name of the credit card payment provider
+    // Identifies which third-party provider this adapter wraps
     @Override
     public String getProviderName() {
-        throw new UnsupportedOperationException("To be implemented");
+        return "CreditCardGateway";
     }
 }
