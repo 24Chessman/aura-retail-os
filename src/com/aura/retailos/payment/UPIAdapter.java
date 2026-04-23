@@ -1,21 +1,28 @@
 // Aura Retail OS | IT620 | Code Crafters
 // Pattern: Adapter
+// Owner: Priya | 202512003
 package com.aura.retailos.payment;
+
+import com.aura.retailos.payment.providers.UPISystem;
 
 public class UPIAdapter implements PaymentProcessor {
 
-    // The name/identifier of the UPI payment system being adapted
-    private String upiSystem;
+    // The incompatible third-party UPI system this adapter wraps.
+    // External code only ever sees PaymentProcessor — never UPISystem.
+    private UPISystem upiSystem = new UPISystem();
 
-    // Adapts the processPayment call to the UPI system's API
+    // Converts the unified PaymentProcessor call into the UPI system's
+    // own initiateUPITransaction(vpa, amount) signature.
     @Override
     public boolean processPayment(double amount, String paymentDetails) {
-        throw new UnsupportedOperationException("To be implemented");
+        System.out.println("[ADAPTER] UPIAdapter converting PaymentProcessor call");
+        // paymentDetails carries the VPA (Virtual Payment Address)
+        return upiSystem.initiateUPITransaction(paymentDetails, amount);
     }
 
-    // Returns the name of the UPI payment provider
+    // Identifies which third-party provider this adapter wraps
     @Override
     public String getProviderName() {
-        throw new UnsupportedOperationException("To be implemented");
+        return "UPISystem";
     }
 }
