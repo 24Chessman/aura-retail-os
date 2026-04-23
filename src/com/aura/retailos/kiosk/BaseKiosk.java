@@ -2,6 +2,7 @@
 // Pattern: Decorator
 package com.aura.retailos.kiosk;
 
+import com.aura.retailos.hardware.bridge.DispenserAbstraction;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,7 +14,10 @@ public class BaseKiosk implements Kiosk {
     private String pricingType;
     private String inventoryPolicy;
 
-    // Constructs a BaseKiosk with all required configuration fields
+    // Optional Bridge-pattern dispenser bound at construction time
+    private DispenserAbstraction dispenser;
+
+    // Original constructor — no hardware dispenser attached (dispenser stays null)
     public BaseKiosk(String kioskId, String kioskType, String dispenserType,
                      String pricingType, String inventoryPolicy) {
         this.kioskId = kioskId;
@@ -21,6 +25,21 @@ public class BaseKiosk implements Kiosk {
         this.dispenserType = dispenserType;
         this.pricingType = pricingType;
         this.inventoryPolicy = inventoryPolicy;
+    }
+
+    // Extended constructor — accepts a concrete DispenserAbstraction (Bridge pattern)
+    // so KioskInterface can retrieve it via getDispenser() and delegate hardware calls
+    public BaseKiosk(String kioskId, String kioskType, String dispenserType,
+                     String pricingType, String inventoryPolicy,
+                     DispenserAbstraction dispenser) {
+        this(kioskId, kioskType, dispenserType, pricingType, inventoryPolicy);
+        this.dispenser = dispenser;
+    }
+
+    // Returns the Bridge abstraction wired to this kiosk's dispenser hardware;
+    // returns null if no hardware was attached at construction time
+    public DispenserAbstraction getDispenser() {
+        return dispenser;
     }
 
     // Returns a formatted status string and prints it to the console
@@ -32,7 +51,7 @@ public class BaseKiosk implements Kiosk {
                 + " | Pricing: " + pricingType
                 + " | Policy: " + inventoryPolicy
                 + " | Status: ACTIVE";
-        System.out.println(status);
+        System.out.println("[KIOSK] " + status);
         return status;
     }
 
