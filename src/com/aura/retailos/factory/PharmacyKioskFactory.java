@@ -2,7 +2,8 @@
 // Pattern: Abstract Factory
 package com.aura.retailos.factory;
 
-import com.aura.retailos.hardware.DispenserAbstraction;
+import com.aura.retailos.hardware.bridge.DispenserAbstraction;
+import com.aura.retailos.hardware.impl.SpiralDispenserImpl;
 
 public class PharmacyKioskFactory extends KioskFactory {
 
@@ -12,11 +13,11 @@ public class PharmacyKioskFactory extends KioskFactory {
         return "PharmacyKiosk";
     }
 
-    // Creates a PrescriptionDispenser for controlled medication dispensing
+    // Creates a SpiralDispenser bridge for controlled medication dispensing
     @Override
     public DispenserAbstraction createDispenser() {
         System.out.println("[FACTORY] Initialising PrescriptionDispenser for PharmacyKiosk.");
-        return new DispenserAbstraction("PrescriptionDispenser");
+        return new DispenserAbstraction(new SpiralDispenserImpl(3));
     }
 
     // Returns the verification module used to validate prescriptions

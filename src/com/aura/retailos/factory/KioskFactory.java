@@ -2,7 +2,7 @@
 // Pattern: Abstract Factory
 package com.aura.retailos.factory;
 
-import com.aura.retailos.hardware.DispenserAbstraction;
+import com.aura.retailos.hardware.bridge.DispenserAbstraction;
 import com.aura.retailos.kiosk.BaseKiosk;
 
 public abstract class KioskFactory {
@@ -31,13 +31,13 @@ public abstract class KioskFactory {
         String pricing = createPricingModule();
         String policy = createInventoryPolicy();
 
-        System.out.println("[FACTORY] Dispenser      : " + dispenser.getDispenserType());
+        System.out.println("[FACTORY] Dispenser      : " + dispenser.getStatus());
         System.out.println("[FACTORY] Verification   : " + verification);
         System.out.println("[FACTORY] Pricing        : " + pricing);
         System.out.println("[FACTORY] Inventory Policy: " + policy);
 
         BaseKiosk kiosk = new BaseKiosk(kioskId, getKioskType(),
-                dispenser.getDispenserType(), pricing, policy);
+                dispenser.getStatus(), pricing, policy, dispenser);
 
         System.out.println("[FACTORY] Kiosk " + kioskId + " ready.");
         return kiosk;

@@ -2,7 +2,8 @@
 // Pattern: Abstract Factory
 package com.aura.retailos.factory;
 
-import com.aura.retailos.hardware.DispenserAbstraction;
+import com.aura.retailos.hardware.bridge.DispenserAbstraction;
+import com.aura.retailos.hardware.impl.RoboticArmDispenserImpl;
 
 public class EmergencyKioskFactory extends KioskFactory {
 
@@ -12,11 +13,11 @@ public class EmergencyKioskFactory extends KioskFactory {
         return "EmergencyReliefKiosk";
     }
 
-    // Creates a RoboticArmDispenser for precise delivery in disaster zones
+    // Creates a RoboticArmDispenser bridge for precise delivery in disaster zones
     @Override
     public DispenserAbstraction createDispenser() {
         System.out.println("[FACTORY] Initialising RoboticArmDispenser for EmergencyReliefKiosk.");
-        return new DispenserAbstraction("RoboticArmDispenser");
+        return new DispenserAbstraction(new RoboticArmDispenserImpl(0.95));
     }
 
     // Returns the emergency verification module for authorised relief disbursement

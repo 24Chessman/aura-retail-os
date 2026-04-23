@@ -2,7 +2,8 @@
 // Pattern: Abstract Factory
 package com.aura.retailos.factory;
 
-import com.aura.retailos.hardware.DispenserAbstraction;
+import com.aura.retailos.hardware.bridge.DispenserAbstraction;
+import com.aura.retailos.hardware.impl.ConveyorDispenserImpl;
 
 public class FoodKioskFactory extends KioskFactory {
 
@@ -12,11 +13,11 @@ public class FoodKioskFactory extends KioskFactory {
         return "FoodKiosk";
     }
 
-    // Creates a ConveyorDispenser for food item delivery on metro platforms
+    // Creates a ConveyorDispenser bridge for food item delivery on metro platforms
     @Override
     public DispenserAbstraction createDispenser() {
         System.out.println("[FACTORY] Initialising ConveyorDispenser for FoodKiosk.");
-        return new DispenserAbstraction("ConveyorDispenser");
+        return new DispenserAbstraction(new ConveyorDispenserImpl(5));
     }
 
     // Returns the expiry verification module for perishable products
