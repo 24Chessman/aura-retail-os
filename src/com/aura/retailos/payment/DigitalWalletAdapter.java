@@ -1,21 +1,28 @@
 // Aura Retail OS | IT620 | Code Crafters
 // Pattern: Adapter
+// Owner: Priya | 202512003
 package com.aura.retailos.payment;
+
+import com.aura.retailos.payment.providers.DigitalWallet;
 
 public class DigitalWalletAdapter implements PaymentProcessor {
 
-    // The name/identifier of the digital wallet service being adapted
-    private String walletName;
+    // The incompatible third-party wallet this adapter wraps.
+    // External code only ever sees PaymentProcessor — never DigitalWallet.
+    private DigitalWallet wallet = new DigitalWallet();
 
-    // Adapts the processPayment call to the digital wallet's API
+    // Converts the unified PaymentProcessor call into the wallet's
+    // own debitWallet(userId, amount) signature.
     @Override
     public boolean processPayment(double amount, String paymentDetails) {
-        throw new UnsupportedOperationException("To be implemented");
+        System.out.println("[ADAPTER] DigitalWalletAdapter converting PaymentProcessor call");
+        // paymentDetails carries the wallet user ID
+        return wallet.debitWallet(paymentDetails, amount);
     }
 
-    // Returns the name of the digital wallet payment provider
+    // Identifies which third-party provider this adapter wraps
     @Override
     public String getProviderName() {
-        throw new UnsupportedOperationException("To be implemented");
+        return "DigitalWallet";
     }
 }
