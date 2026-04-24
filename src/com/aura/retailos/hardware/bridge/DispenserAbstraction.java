@@ -24,6 +24,11 @@ public class DispenserAbstraction {
         this.implementation = impl;
     }
 
+    // Returns the currently bound hardware implementation
+    public DispenserImplementation getImplementation() {
+        return implementation;
+    }
+
     // Returns the status of the currently bound hardware implementation
     public String getStatus() {
         return "Dispenser: " + implementation.getType() + " | Ready";
