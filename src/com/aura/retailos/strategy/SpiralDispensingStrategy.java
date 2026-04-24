@@ -1,5 +1,5 @@
 // Aura Retail OS | IT620 | Code Crafters
-// Pattern: Strate
+// Pattern: Strategy
 package com.aura.retailos.strategy;
 
 public class SpiralDispensingStrategy implements DispensingStrategy {

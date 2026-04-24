@@ -1,5 +1,5 @@
 // Aura Retail OS | IT620 | Code Crafters
-// Simulated third-party credit card payment API
+// Pattern: Adapter
 package com.aura.retailos.payment.providers;
 
 import java.util.Random;

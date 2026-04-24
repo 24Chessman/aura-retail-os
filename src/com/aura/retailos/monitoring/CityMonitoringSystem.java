@@ -1,5 +1,5 @@
 // Aura Retail OS | IT620 | Code Crafters
-// Supporting class
+// Pattern: Observer (stub)
 package com.aura.retailos.monitoring;
 
 import java.util.List;

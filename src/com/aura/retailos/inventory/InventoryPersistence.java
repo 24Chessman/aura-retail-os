@@ -1,5 +1,5 @@
 // Aura Retail OS | IT620 | Code Crafters
-// Supporting class
+// Pattern: Proxy
 package com.aura.retailos.inventory;
 
 import com.aura.retailos.commands.Command;
@@ -66,7 +66,7 @@ public class InventoryPersistence {
         try (BufferedReader br = new BufferedReader(new FileReader(INVENTORY_FILE))) {
             String line;
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
+                System.out.println("[PERSISTENCE] " + line);
             }
         } catch (IOException e) {
             System.err.println("[PERSISTENCE] ERROR loading inventory: " + e.getMessage());
@@ -110,7 +110,7 @@ public class InventoryPersistence {
         try (BufferedReader br = new BufferedReader(new FileReader(TRANSACTIONS_FILE))) {
             String line;
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
+                System.out.println("[PERSISTENCE] " + line);
             }
         } catch (IOException e) {
             System.err.println("[PERSISTENCE] ERROR loading transactions: " + e.getMessage());
