@@ -19,29 +19,29 @@ modular architecture.
 
 ## 👥 Team — Code Crafters
 
-| Name    | Roll Number | Responsibility                        |
-|---------|-------------|---------------------------------------|
-| Naitik  | 202512006   | Core, Singleton, Facade, Command, Decorator (base) |
-| Priya   | 202512003   | Abstract Factory, Adapter (Payment)   |
-| Gaurang | 202512007   | Bridge, Strategy, Decorator (Modules) |
-| Harshal | 202512013   | Proxy, Composite, Persistence         |
+| Name    | Roll Number | Responsibility                                      |
+|---------|-------------|-----------------------------------------------------|
+| Naitik  | 202512006   | Core, Singleton, Facade, Command, Decorator (base)  |
+| Priya   | 202512003   | Abstract Factory, Adapter (Payment)                 |
+| Gaurang | 202512007   | Bridge, Strategy, Decorator (Modules)               |
+| Harshal | 202512013   | Proxy, Composite, Persistence                       |
 
 ---
 
 ## 🧩 Design Patterns Implemented
 
-| Pattern          | Where Used                        | Status         |
-|------------------|-----------------------------------|----------------|
-| Singleton        | CentralRegistry                   | ✅ Complete     |
-| Abstract Factory | Kiosk creation (3 kiosk types)    | ✅ Complete     |
-| Command          | Transaction system                | ✅ Complete     |
-| Facade           | KioskInterface (external API)     | ✅ Complete     |
-| Bridge           | Hardware abstraction layer        | 🔧 In Progress |
-| Strategy         | Dispenser behaviour at runtime    | 🔧 In Progress |
-| Decorator        | Optional hardware modules         | 🔧 In Progress |
-| Proxy            | Secure inventory access           | 🔧 In Progress |
-| Composite        | Nested product/bundle inventory   | 🔧 In Progress |
-| Adapter          | Payment provider integration      | 🔧 In Progress |
+| Pattern          | Where Used                        | Status      |
+|------------------|-----------------------------------|-------------|
+| Singleton        | CentralRegistry                   | ✅ Complete |
+| Abstract Factory | Kiosk creation (3 kiosk types)    | ✅ Complete |
+| Command          | Transaction system                | ✅ Complete |
+| Facade           | KioskInterface (external API)     | ✅ Complete |
+| Bridge           | Hardware abstraction layer        | ✅ Complete |
+| Strategy         | Dispenser behaviour at runtime    | ✅ Complete |
+| Decorator        | Optional hardware modules         | ✅ Complete |
+| Proxy            | Secure inventory access           | ✅ Complete |
+| Composite        | Nested product/bundle inventory   | ✅ Complete |
+| Adapter          | Payment provider integration      | ✅ Complete |
 
 ---
 
@@ -50,18 +50,20 @@ modular architecture.
 ```
 src/
 └── com/aura/retailos/
-    ├── core/          # Singleton, Facade, Command, Monitoring
-    ├── factory/       # Abstract Factory — kiosk types
+    ├── Main.java      # Simulation entry point — all 3 Path B scenarios
+    ├── core/          # Singleton, Facade, Command
+    ├── factory/       # Abstract Factory — 3 kiosk types
     ├── kiosk/         # BaseKiosk + Decorator modules
     ├── hardware/
-    │   ├── bridge/    # Bridge pattern — dispenser abstraction
-    │   └── impl/      # Bridge implementations — dispenser types
+    │   ├── bridge/    # Bridge pattern — DispenserAbstraction + DispenserImplementation
+    │   └── impl/      # Bridge implementations — Conveyor, Robotic, Spiral
     ├── strategy/      # Strategy pattern — dispensing algorithms
-    ├── inventory/     # Composite + Proxy + JSON persistence
-    │   └── composite/ # InventoryItem, Product, ProductBundle
-    ├── payment/       # Adapter pattern — payment providers
-    ├── commands/      # Command pattern — transactions
-    └── monitoring/    # City monitoring system
+    ├── inventory/     # Proxy + Persistence
+    │   └── composite/ # Composite — InventoryItem, Product, ProductBundle
+    ├── payment/       # Adapter pattern — PaymentProcessor interface
+    │   └── providers/ # Third-party stubs — CreditCardGateway, DigitalWallet, UPISystem
+    ├── commands/      # Command pattern — Purchase, Refund, Restock
+    └── monitoring/    # Observer stub — CityMonitoringSystem
 ```
 
 ---
@@ -75,30 +77,48 @@ src/
 git clone https://github.com/24Chessman/aura-retail-os.git
 cd aura-retail-os
 
-# Compile
+# Compile (all sources)
 javac -d out src/com/aura/retailos/**/*.java src/com/aura/retailos/Main.java
 
-# Run simulation
+# Run final simulation
 java -cp out com.aura.retailos.Main
 ```
 
 ---
 
-## 🎬 Simulation Scenarios (Subtask 2)
+## 🎬 Final Simulation — 3 Path B Scenarios
 
-The current simulation demonstrates 3 fully implemented patterns across
-11 scenes:
+All 10 patterns are demonstrated across the following 3 scenarios:
 
-1. **FoodKiosk creation** — Abstract Factory builds kiosk with compatible components
-2. **Purchase, Refund, Restock** — Command pattern with full transaction audit trail
-3. **PharmacyKiosk and EmergencyKiosk** — Factory creates 3 different kiosk types
-4. **Registry status** — Singleton tracks all kiosks and system mode
+### Scenario 1 — Adding a Hardware Module at Runtime (Decorator)
+- A `FoodKiosk` is created via **Abstract Factory**
+- A `ConveyorDispenserImpl` is wired with `ConveyorDispensingStrategy` (**Bridge + Strategy**)
+- `UPIAdapter` is injected as the payment provider (**Adapter**)
+- Purchasing a cold item is blocked — kiosk has no refrigeration (**Proxy stock check**)
+- `RefrigerationDecorator` then `SolarPowerDecorator` are attached at runtime — **Decorator**
+- `getStatus()` now shows Temp and Solar readings; `getCapabilities()` shows 2 new modules
+- Both purchases succeed; full transaction log via **Command + Facade**
 
-**Planned for Final Submission:**
+### Scenario 2 — Integrating a New Payment Provider (Adapter)
+- A `PharmacyKiosk` is created via **Abstract Factory**
+- `CreditCardAdapter` and `UPIAdapter` process standalone payments (**Adapter**)
+- `DigitalWalletAdapter` is plugged in as a new provider — **zero existing code changed**
+- Paracetamol is purchased via **DigitalWallet** through **Facade → Proxy → Command**
 
-1. **Adding a hardware module at runtime** — Attach RefrigerationDecorator to a FoodKiosk dynamically
-2. **Integrating a new payment provider** — Plug in DigitalWalletAdapter without touching existing code
-3. **Nested bundle availability** — EmergencyKit propagates unavailability when a nested item goes out of stock
+### Scenario 3 — Nested Bundle Availability (Composite + Proxy)
+- An `EmergencyKiosk` is created via **Abstract Factory**
+- A nested bundle tree is built: `EmergencyKit → FirstAidKit → [Bandages, Antiseptic, Gauze]` — **Composite**
+- Zeroing Antiseptic stock cascades `isAvailable() = false` up to the root bundle
+- **Proxy** blocks all write operations when `CentralRegistry` enters `EMERGENCY` mode — **Singleton**
+- Restocking restores availability; purchase completes through **Facade → Command**
+- State persisted to `data/transactions.json` via **InventoryPersistence**
+
+---
+
+## 📁 Data Persistence
+
+Transaction history is written to `data/transactions.json` after Scenario 3
+via `KioskInterface.saveState()` → `InventoryPersistence.saveTransactions()`.
 
 ---
 
@@ -107,14 +127,6 @@ The current simulation demonstrates 3 fully implemented patterns across
 - `docs/PRD.docx` — Full Product Requirements Document
 - `docs/ClassDiagram.drawio` — Class diagram
 - `docs/ArchitectureDiagram.drawio` — Subsystem architecture
-
----
-
-## 📁 Data Persistence
-
-Inventory, transaction history, and system config will be stored as JSON
-files in the `data/` directory and loaded on startup via
-`InventoryPersistence.java` (planned for final submission).
 
 ---
 
