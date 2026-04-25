@@ -78,7 +78,7 @@ git clone https://github.com/24Chessman/aura-retail-os.git
 cd aura-retail-os
 
 # Compile (all sources)
-javac -d out src/com/aura/retailos/**/*.java src/com/aura/retailos/Main.java
+javac -d out -sourcepath src src\com\aura\retailos\Main.java
 
 # Run final simulation
 java -cp out com.aura.retailos.Main
@@ -124,7 +124,7 @@ via `KioskInterface.saveState()` → `InventoryPersistence.saveTransactions()`.
 
 ## 📄 Documentation
 
-- `docs/PRD.docx` — Full Product Requirements Document
+- `docs/Aura_Retail_OS_PRD.docx` — Full Product Requirements Document
 - `docs/ClassDiagram.drawio` — Class diagram
 - `docs/ArchitectureDiagram.drawio` — Subsystem architecture
 
