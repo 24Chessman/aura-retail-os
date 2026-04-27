@@ -51,7 +51,6 @@ public class BaseKiosk implements Kiosk {
                 + " | Pricing: " + pricingType
                 + " | Policy: " + inventoryPolicy
                 + " | Status: ACTIVE";
-        System.out.println("[KIOSK] " + status);
         return status;
     }
 

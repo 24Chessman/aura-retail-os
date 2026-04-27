@@ -58,7 +58,7 @@ public class InventoryPersistence {
             return;
         }
 
-        System.out.println("[PERSISTENCE] Inventory saved to inventory.json");
+        System.out.println("[PERSISTENCE] Inventory saved to data/inventory.json");
     }
 
     // Loads and prints inventory state from disk
@@ -102,7 +102,7 @@ public class InventoryPersistence {
             return;
         }
 
-        System.out.println("[PERSISTENCE] Transactions saved to transactions.json");
+        System.out.println("[PERSISTENCE] Transactions saved to data/transactions.json");
     }
 
     // Loads and prints transaction history from disk
@@ -118,5 +118,23 @@ public class InventoryPersistence {
         }
 
         System.out.println("[PERSISTENCE] Transactions loaded from transactions.json");
+    }
+
+    // Saves kiosk configuration (capabilities) to disk as JSON
+    public void saveConfig(List<String> capabilities) {
+        ensureDataDir();
+        try (FileWriter fw = new FileWriter("data/config.json")) {
+            fw.write("{\n  \"capabilities\": [\n");
+            for (int i = 0; i < capabilities.size(); i++) {
+                fw.write("    \"" + capabilities.get(i) + "\"");
+                if (i < capabilities.size() - 1) fw.write(",");
+                fw.write("\n");
+            }
+            fw.write("  ]\n}");
+        } catch (IOException e) {
+            System.err.println("[PERSISTENCE] ERROR saving config: " + e.getMessage());
+            return;
+        }
+        System.out.println("[PERSISTENCE] Config saved to data/config.json");
     }
 }

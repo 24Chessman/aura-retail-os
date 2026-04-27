@@ -94,4 +94,9 @@ public class InventoryProxy implements InventoryInterface {
     public void printInventory() {
         realInventory.printInventory();
     }
+
+    // Expose real inventory exclusively for persistence
+    public RealInventory getRealInventory() {
+        return realInventory;
+    }
 }

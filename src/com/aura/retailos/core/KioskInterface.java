@@ -10,12 +10,13 @@ import com.aura.retailos.inventory.InventoryPersistence;
 import com.aura.retailos.inventory.InventoryProxy;
 import com.aura.retailos.inventory.composite.Product;
 import com.aura.retailos.kiosk.BaseKiosk;
+import com.aura.retailos.kiosk.Kiosk;
 import com.aura.retailos.payment.PaymentProcessor;
 
 public class KioskInterface {
 
-    // The base kiosk this facade manages
-    private BaseKiosk kiosk;
+    // The kiosk this facade manages (can be a decorated Kiosk)
+    private Kiosk kiosk;
 
     // The command invoker used to execute and track all transactions
     private CommandInvoker invoker;
@@ -55,9 +56,20 @@ public class KioskInterface {
         System.out.println("[FACADE] Payment provider: " + paymentProcessor.getProviderName());
     }
 
+    // Allows the UI to update the facade's kiosk reference after decorators are attached
+    public void updateKioskReference(Kiosk decoratedKiosk) {
+        this.kiosk = decoratedKiosk;
+    }
+
     // 7-step purchase flow integrating Proxy, Adapter, Bridge, Command, and Decorator patterns
     public boolean purchaseItem(String productName, int quantity, String paymentMethod) {
         System.out.println("[FACADE] purchaseItem() called for: " + productName + " x" + quantity);
+
+        // Emergency mode purchase limit check
+        if ("EMERGENCY".equals(registry.getSystemMode()) && quantity >= 5) {
+            System.out.println("[FACADE] EMERGENCY MODE: Purchase limit exceeded");
+            return false;
+        }
 
         // Step 1 — Guard: verify sufficient stock via the Proxy
         int stock = inventoryProxy.getStock(productName);
@@ -131,6 +143,8 @@ public class KioskInterface {
         System.out.println("[FACADE] saveState() called");
         InventoryPersistence persistence = new InventoryPersistence();
         persistence.saveTransactions(invoker.getHistory());
+        persistence.saveInventory(inventoryProxy.getRealInventory());
+        persistence.saveConfig(kiosk.getCapabilities());
         System.out.println("[FACADE] State saved.");
     }
 

@@ -237,6 +237,7 @@ public class InteractiveMode {
         // KioskInterface creates its own internal InventoryProxy (user: SYSTEM), but we
         // call seedInventory() so its proxy has the same products that our ADMIN proxy holds.
         kioskInterface = new KioskInterface(baseKiosk, paymentProcessor);
+        kioskInterface.updateKioskReference(kiosk);
         kioskInterface.seedInventory(
                 p001, p002, p003, p004, p005,
                 bandages, antiseptic, gauze, waterBottleB, flashlight
@@ -328,6 +329,7 @@ public class InteractiveMode {
             int pChoice = readInt();
             paymentProcessor = buildPaymentProcessor(pChoice);
             kioskInterface = new KioskInterface(baseKiosk, paymentProcessor);
+            kioskInterface.updateKioskReference(kiosk);
             // Re-seed so the new interface has inventory data
             reseedKioskInterface();
         }
@@ -452,6 +454,7 @@ public class InteractiveMode {
         System.out.println("[ADAPTER] No existing payment code was modified.");
         // Rebuild the facade with the new provider, preserving inventory
         kioskInterface = new KioskInterface(baseKiosk, paymentProcessor);
+        kioskInterface.updateKioskReference(kiosk);
         reseedKioskInterface();
     }
 
