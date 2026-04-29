@@ -3,7 +3,7 @@
 **Designing an Autonomous Modular Smart-City Retail Infrastructure**
 
 > Course: Object Oriented Programming (IT620) | DA-IICT  
-> Team: Code Crafters | Path B — Modular Hardware Platform
+> Team: Code Crafters | Path B - Modular Hardware Platform
 
 ---
 
@@ -140,9 +140,27 @@ via `KioskInterface.saveState()`:
 
 ## 📄 Documentation
 
-- `docs/Aura_Retail_OS_PRD.docx` — Full Product Requirements Document
-- `docs/ClassDiagram.drawio` — Class diagram
-- `docs/ArchitectureDiagram.drawio` — Subsystem architecture
+The project is extensively documented, covering requirements, architectural design, and behavioral flows:
+
+### 📑 Core Documents
+- [Aura Retail OS PRD](docs/Aura_Retail_OS_PRD.docx) — Full Product Requirements Document
+- [Code Crafters Technical Report](docs/codeCraftersReport.docx) — Final implementation details
+- [Project Presentation](docs/auraRetailOsPresentation.pptx) — Overview and walkthrough
+
+### 🏗️ Architecture & Class Design
+- [Subsystem Architecture](docs/ArchitectureDiagram.png) — High-level system design
+- [Class Diagram](docs/ClassDiagram.png) — Detailed OOP structure and patterns
+
+### 📊 Use Case Diagrams
+- [Inventory Management](docs/inventoryManageUsecaseDiagram.png)
+- [Kiosk Creation](docs/kioskCreationUsecaseDiagram.png)
+- [Purchase Transaction](docs/purchaseTreanscationUsecaseDiagram.png)
+- [Restocking System](docs/restockUsecaseDiagram.png)
+- [Transaction Reversal](docs/transactionReversalUsecaseDiagram.png)
+
+### 🔄 Activity & Sequence Diagrams
+- **Activity**: [Customer Purchase](docs/customerPurchaseActivityDiagram.png) | [Kiosk Deployment](docs/kisoskDeploymentActivityDiagram.png) | [Transaction Flow](docs/transactionActivityDiagram.png)
+- **Sequence**: [Purchase Execution](docs/PurchaseExecutionSequenceDiagram.png) | [Refund Process](docs/RefundProcessSequenceDiagram.png) | [System Bootstrapping](docs/SystemBootstrappingSequenceDiagram.png)
 
 ---
 
