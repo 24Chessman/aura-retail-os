@@ -63,7 +63,7 @@ src/
     ├── payment/       # Adapter pattern — PaymentProcessor interface
     │   └── providers/ # Third-party stubs — CreditCardGateway, DigitalWallet, UPISystem
     ├── commands/      # Command pattern — Purchase, Refund, Restock
-    └── monitoring/    # Observer stub — CityMonitoringSystem
+    └── monitoring/    # CityMonitoringSystem — alert and failure reporting
 ```
 
 ---
@@ -83,6 +83,17 @@ javac -d out -sourcepath src src\com\aura\retailos\Main.java
 # Run final simulation
 java -cp out com.aura.retailos.Main
 ```
+
+After running, select your mode:
+
+**[1] Automated Simulation**  
+Runs all 3 Path B scenarios automatically.  
+Demonstrates all 10 design patterns and 8 requirements.
+
+**[2] Interactive Mode**  
+You control the kiosk yourself.  
+Select kiosk type, attach hardware modules, choose payment  
+provider, and test all features manually through a menu.
 
 ---
 
@@ -117,8 +128,13 @@ All 10 patterns are demonstrated across the following 3 scenarios:
 
 ## 📁 Data Persistence
 
-Transaction history is written to `data/transactions.json` after Scenario 3
-via `KioskInterface.saveState()` → `InventoryPersistence.saveTransactions()`.
+Transaction history, inventory state, and system configuration are
+all persisted to the `data/` directory at the end of Scenario 3
+via `KioskInterface.saveState()`:
+
+- `data/transactions.json` — full transaction audit trail
+- `data/inventory.json` — current stock levels for all products
+- `data/config.json` — system configuration and registered kiosk IDs
 
 ---
 

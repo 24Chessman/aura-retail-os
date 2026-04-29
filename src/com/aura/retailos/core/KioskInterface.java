@@ -79,9 +79,9 @@ public class KioskInterface {
             return false;
         }
 
-        // Step 2 — Pricing: simulate a flat ₹50 per unit for now
+        // Step 2 — Pricing: simulate a flat Rs.50 per unit for now
         double price = quantity * 50.0;
-        System.out.println("[FACADE] Computed price: ₹" + price);
+        System.out.println("[FACADE] Computed price: Rs." + price);
 
         // Step 3 — Payment: delegate to the injected Adapter; fall back gracefully if none set
         if (paymentProcessor != null) {

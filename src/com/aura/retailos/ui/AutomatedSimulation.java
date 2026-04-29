@@ -441,7 +441,7 @@ public class AutomatedSimulation {
 
         // ── Step 14: Purchase now-available EmergencyKit (rep: Bandages) ─
         System.out.println();
-        System.out.println("[SCENARIO 3] Purchasing EmergencyKit — Bandages (P010) x1...");
+        System.out.println("[SCENARIO 3] Purchasing EmergencyKit - Bandages (P010) x1...");
         boolean kitResult = kioskInterface.purchaseItem("P010", 1, "UPI");
         System.out.println("[SCENARIO 3] EmergencyKit purchase result: " + kitResult);
 
